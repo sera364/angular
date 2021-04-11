@@ -1,0 +1,38 @@
+<div class="container">
+
+
+    <table class="table table-striped">
+        <thead>
+            <th>No.</th>
+            <th>Name</th>
+            <th> Avilable Quntaity</th>
+            <th> Needed Quntaity</th>
+            <th>Price</th>
+            <th>Buy</th>
+            <!-- <th>More (html)</th>
+            <th>More (code)</th> -->
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let data of getProductsByCatID(); let i=index">
+                <td>{{i+1}}</td>
+                <td>{{data.name}}</td>
+                <td> 
+                    <span [ngSwitch]="data.quantity">
+                        <p *ngSwitchCase="0">out of inventory</p>
+                        <p *ngSwitchCase="1">Last item in stock</p>
+                        <p *ngSwitchDefault>
+                            {{data.quantity}}
+                        </p>       
+                    </span>
+                </td>
+                <td> <input #Pcount type="number" [disabled]="data.quantity==0" min="1" [max]="data.quantity"> </td>
+                <td>{{data.price}}</td>
+                <td><button class="btn btn-primary" (click)="TotalPrice(data.price,Pcount.value)">Buy</button></td>
+                <!-- <td><a class="btn btn-info" [routerLink]="['/Product',data.id]">More(html)</a></td>
+                <td><a class="btn btn-danger" (click)="More(data.id)">More(code)</a></td> -->
+            </tr>
+
+        </tbody>
+    </table>
+</div>
